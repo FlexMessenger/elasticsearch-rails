@@ -90,7 +90,7 @@ namespace :elasticsearch do
         next if model_filename.match(/^concerns\//i) # Skip concerns/ folder
 
         begin
-          klass = model_filename.camelize.constantize
+          klass = model_filename.gsub(/_decorator/i, '').camelize.constantize
         rescue NameError
           require(path) ? retry : raise(RuntimeError, "Cannot load class '#{klass}'")
         end
